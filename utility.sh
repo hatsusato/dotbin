@@ -38,3 +38,17 @@ Assert() {
     done >&2
     return ${err}
 }
+Command() {
+    if (($# == 0)); then
+        Assert 'Logic error: there is no command specified'
+    fi
+    local options='-type f -print -quit'
+    local cmd=$(find -L "${BIN_DIR}" -name "$1" ${options} 2>/dev/null)
+    if test -x "${cmd}"; then
+        "${cmd}" "${@:2}"
+    elif test "${cmd}"; then
+        Error <<<"Command: '$1' is not executable"
+    else
+        Error <<<"Command: '$1' does not exist"
+    fi
+}

@@ -27,3 +27,14 @@ Error() {
     fi
     exit ${err}
 }
+Assert() {
+    local -i err=$?
+    if ((err == 0)); then
+        err=1
+    fi
+    for msg in "$@"
+    do
+        echo "${msg}"
+    done >&2
+    return ${err}
+}

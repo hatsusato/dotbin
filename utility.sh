@@ -61,3 +61,25 @@ ScriptDir() {
 Bound() {
     test "${!1+'bound'}"
 }
+Parse() {
+    if (($# == 0)); then
+        Assert 'Logic error: there is no argument to parse'
+    fi
+    case "$1" in
+        --?* )
+            parsed_="${1#*=}"
+            return 1;;
+        -??* )
+            parsed_="${1:2}"
+            return 1;;
+        -? )
+            if (($# == 1)); then
+                Error "there is missing argument after '$1'"
+            fi
+            parsed_="$2"
+            return 2;;
+        * )
+            parsed_="$1"
+            return 1;;
+    esac
+}

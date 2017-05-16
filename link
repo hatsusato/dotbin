@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+src=$(Command canonical "$1")
+dst="$2"
+
+if test -h "${dst}"; then
+    unlink "${dst}"
+elif test -e "${dst}"; then
+    Command backup "${dst}"
+    rm -rf "${dst}"
+else
+    mkdir -p "$(dirname "${dst}")"
+fi
+if ! ln -nsv "${src}" "${dst}"; then
+    Error "failed to create symlink to '${dst}'"
+fi

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+quote="'"
+echo "${quote}$1${quote}"

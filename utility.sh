@@ -52,3 +52,9 @@ Command() {
         Error <<<"Command: '$1' does not exist"
     fi
 }
+ScriptFile() {
+    realpath "$0"
+}
+ScriptDir() {
+    dirname "$(ScriptFile)"
+}

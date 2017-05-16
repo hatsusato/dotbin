@@ -58,3 +58,6 @@ ScriptFile() {
 ScriptDir() {
     dirname "$(ScriptFile)"
 }
+Bound() {
+    test "${!1+'bound'}"
+}

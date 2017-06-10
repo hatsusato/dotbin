@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+Command background gnome-open 'http://localhost:631'

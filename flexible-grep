@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+script=$(Command flexible-pattern "$1")
+shift
+grep -e "${script}" "$@"

@@ -74,7 +74,7 @@ Parse() {
             return 1;;
         -? )
             if (($# == 1)); then
-                Error "there is missing argument after '$1'"
+                Error "argument after '$1' is missing"
             fi
             parsed_="$2"
             return 2;;

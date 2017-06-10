@@ -44,7 +44,11 @@ before=$(Command sed-escape "${before}")
 after=$(Command sed-escape "${after-}")
 script="${address-}s/${before}/${after}/${global-}"
 if Bound file; then
-    sed -i -e "${script}" "${file}"
+    if test -w "${file}"; then
+        sed -i -e "${script}" "${file}"
+    else
+        sudo sed -i -e "${script}" "${file}"
+    fi
 else
     sed -e "${script}"
 fi

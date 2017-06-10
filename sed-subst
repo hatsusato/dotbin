@@ -27,7 +27,7 @@ Get() {
                 Parse "$@" || Error "unknown option '${arg}'"
                 shift 1
                 if Bound before; then
-                    Bound after "${arg}"
+                    Set after
                 else
                     before="${arg}"
                 fi;;
@@ -40,8 +40,8 @@ Get "$@"
 if ! Bound before; then
     Error "no command is specified"
 fi
-before=$(sed-escape "${before}")
-after=$(sed-escape "${after-}")
+before=$(Command sed-escape "${before}")
+after=$(Command sed-escape "${after-}")
 script="${address-}s/${before}/${after}/${global-}"
 if Bound file; then
     sed -i -e "${script}" "${file}"

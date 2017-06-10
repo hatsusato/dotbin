@@ -80,6 +80,6 @@ Parse() {
             return 2;;
         * )
             parsed_="$1"
-            return 1;;
+            return 0;;
     esac
 }

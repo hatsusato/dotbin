@@ -2,21 +2,7 @@
 
 source "${UTILITY_FILE}"
 
-readonly bak_dir="${HOME}/.bak"
-
 src=$(Command canonical "$1")
-name=$(basename "${src}")
-dst="${bak_dir}/${name}.$(date '+%s.%N')"
-
-if ! test -d "${bak_dir}"; then
-    mkdir -p "${bak_dir}"
-fi
-if [[ "${src}" == "${bak_dir}" ]]; then
-    Error 'cannot backup $HOME/.bak'
-fi
-if Command found "${src}" '.bak' -type d | fgrep -q "${bak_dir}"; then
-    Error 'cannot backup dir including $HOME/.bak'
-fi
-if ! cp -Lnprv "${src}" "${dst}"; then
-    Error "failed to backup '${name}'"
-fi
+dst="${src}.$(date '+%N')"
+cp -Lnpr "${src}" "${dst}"
+gvfs-trash "${dst}"

@@ -18,7 +18,7 @@ Get() {
                 Set address;;
             -f* | --file=* )
                 Parse "$@" || shift $?
-                Set find;;
+                Set file;;
             * )
                 Parse "$@" || Error "unknown option '${arg}'"
                 shift 1
@@ -27,7 +27,7 @@ Get() {
     done
 }
 
-declare -g parsed_ arg find address command
+declare -g parsed_ arg file address command
 Get "$@"
 if ! Bound command; then
     Error "no command is specified"

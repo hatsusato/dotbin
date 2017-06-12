@@ -18,7 +18,7 @@ Get() {
                 Set address;;
             -f* | --file=* )
                 Parse "$@" || shift $?
-                Set find;;
+                Set file;;
             -g | --global )
                 parsed_='g'
                 shift 1
@@ -35,7 +35,7 @@ Get() {
     done
 }
 
-declare -g parsed_ arg find address global before after
+declare -g parsed_ arg file address global before after
 Get "$@"
 if ! Bound before; then
     Error "no command is specified"

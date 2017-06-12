@@ -18,14 +18,14 @@ Get() {
                 Set address;;
             -f* | --file=* )
                 Parse "$@" || shift $?
-                Set find;;
+                Set file;;
             * )
                 Error "unknown option '${arg}'";;
         esac
     done
 }
 
-declare -g parsed_ arg find address
+declare -g parsed_ arg file address
 Get "$@"
 script="${address-}d"
 if Bound file; then

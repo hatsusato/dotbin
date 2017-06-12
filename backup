@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+src=$(Command canonical "$1")
+dst="${src}.$(date '+%N')"
+cp -Lnpr "${src}" "${dst}"
+gvfs-trash "${dst}"

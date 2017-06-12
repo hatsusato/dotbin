@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+grep -n -m 1 -e "$1" - | cut -d ':' -f 1

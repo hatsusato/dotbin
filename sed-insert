@@ -1,0 +1,44 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+Set() {
+    if Bound "$1"; then
+        Error "extra option '${arg}' is specified"
+    fi
+    declare -g "$1"="${parsed_}"
+}
+Get() {
+    while ((0 < $#))
+    do
+        arg="$1"
+        case "${arg}" in
+            -a* | --address=* )
+                Parse "$@" || shift $?
+                Set address;;
+            -f* | --file=* )
+                Parse "$@" || shift $?
+                Set file;;
+            * )
+                Parse "$@" || Error "unknown option '${arg}'"
+                shift 1
+                Set command;;
+        esac
+    done
+}
+
+declare -g parsed_ arg file address command
+Get "$@"
+if ! Bound command; then
+    Error "no command is specified"
+fi
+script="${address-}i\\${command}"
+if Bound file; then
+    if test -w "${file}"; then
+        sed -i -e "${script}" "${file}"
+    else
+        sudo sed -i -e "${script}" "${file}"
+    fi
+else
+    sed -e "${script}"
+fi

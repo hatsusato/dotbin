@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source "${UTILITY_FILE}"
+
+if test -e "$1"; then
+    realpath "$1"
+else
+    Error "'$1' does not exist"
+fi

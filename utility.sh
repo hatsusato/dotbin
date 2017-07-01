@@ -45,7 +45,7 @@ Command() {
     local options='-type f -print -quit'
     local cmd=$(find -L "${BIN_DIR}" -name "$1" ${options} 2>/dev/null)
     if test -x "${cmd}"; then
-        "${cmd}" "${@:2}"
+        PATH="${BIN_DIR}:${PATH}" "${cmd}" "${@:2}"
     elif test "${cmd}"; then
         Error <<<"Command: '$1' is not executable"
     else

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 quote="'"
 echo "${quote}$1${quote}"

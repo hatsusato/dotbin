@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 if test "$1" -eq "$1" &>/dev/null; then
     echo "$1"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 if test -e "$1"; then
     realpath "$1"

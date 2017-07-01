@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 script=$(Command flexible-pattern "$1")
 shift

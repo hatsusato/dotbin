@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 s='[[:space:]]'
 Command sed-subst -g "${s}\+" "${s}\*" <<<"$1"

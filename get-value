@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 s='[[:space:]]*'
 script="s/^${s}$1${s}=\(.*\)\$/\1/"

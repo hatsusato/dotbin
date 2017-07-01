@@ -1,0 +1,19 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+readonly idevice_dir="/media/${USER}/idevice"
+
+Command executable ifuse idevicepair
+if test -e "${idevice_dir}"; then
+    Error "'${idevice_dir}' is busy"
+fi
+while ! idevicepair pair
+do
+    if ! Command yesno 'Retry (Y/n)?'; then
+        exit 0
+    fi
+done
+sudo mkdir -p "${idevice_dir}"
+sudo chown "${USER}:${USER}" "${idevice_dir}"
+ifuse "${idevice_dir}"

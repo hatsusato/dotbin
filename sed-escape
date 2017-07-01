@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 sed -e 's,/,\\/,g' <<<"$1"

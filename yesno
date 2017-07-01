@@ -1,0 +1,19 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+prompt="$1"
+while true
+do
+    read -N 1 -p "${prompt} " yesno
+    if test -z "${yesno}"; then
+        continue
+    fi
+    echo
+    case "${yesno}" in
+        [yY]*)
+            exit 0;;
+        *)
+            exit 1;;
+    esac
+done

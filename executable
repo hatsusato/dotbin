@@ -2,4 +2,4 @@
 
 . $(type -P utility.sh)
 
-Command found . "$@"
+which "$@" &>/dev/null

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source "${UTILITY_FILE}"
+. $(type -P utility.sh)
 
 find -L "$1" -name "$2" "${@:3}" 2>/dev/null

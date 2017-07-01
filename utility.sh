@@ -7,7 +7,7 @@ if test "${DEBUG+'bound'}"; then
 fi
 readonly BIN_DIR=$(realpath "$(dirname "${BASH_SOURCE}")")
 export PATH="/bin:/usr/bin"
-export LANG='C'
+export LC_ALL='C'
 
 Error() {
     local -i err=$?

@@ -9,6 +9,19 @@ readonly BIN_DIR=$(realpath "$(dirname "${BASH_SOURCE}")")
 export PATH="/bin:/usr/bin"
 export LC_ALL='C'
 
+ErrorMessage() {
+    if (($# == 0)); then
+        cat - >&2
+    else
+        local name=$(basename "$0")
+        local empty=$(head -c ${#name} </dev/zero | tr '\0' ' ')
+        for msg in "$@"
+        do
+            echo "${name}: ${msg}"
+            name="${empty}"
+        done >&2
+    fi
+}
 Error() {
     local -i err=$?
     if ((err == 0)); then

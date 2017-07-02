@@ -27,17 +27,7 @@ Error() {
     if ((err == 0)); then
         err=1
     fi
-    if (($# == 0)); then
-        cat - >&2
-    else
-        local name=$(basename "$0")
-        local empty=$(head -c ${#name} </dev/zero | tr '\0' ' ')
-        for msg in "$@"
-        do
-            echo "${name}: ${msg}"
-            name="${empty}"
-        done >&2
-    fi
+    ErrorMessage "$@"
     exit ${err}
 }
 Assert() {
@@ -45,15 +35,12 @@ Assert() {
     if ((err == 0)); then
         err=1
     fi
-    for msg in "$@"
-    do
-        echo "${msg}"
-    done >&2
+    ErrorMessage "$@"
     return ${err}
 }
 Command() {
     if (($# == 0)); then
-        Assert 'Logic error: there is no command specified'
+        Assert <<<'Logic error: there is no command specified'
     fi
     local options='-type f -print -quit'
     local cmd=$(find -L "${BIN_DIR}" -name "$1" ${options} 2>/dev/null)
@@ -76,7 +63,7 @@ Bound() {
 }
 Parse() {
     if (($# == 0)); then
-        Assert 'Logic error: there is no argument to parse'
+        Assert <<<'Logic error: there is no argument to parse'
     fi
     case "$1" in
         --?* )

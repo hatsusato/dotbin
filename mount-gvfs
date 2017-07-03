@@ -1,0 +1,11 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+readonly src_dir='/run/user/1000/gvfs'
+readonly gvfs_dir="/media/${USER}/gvfs"
+
+if test -e "${gvfs_dir}"; then
+    Error "'${gvfs_dir}' is busy"
+fi
+sudo ln -s "${src_dir}" "${gvfs_dir}"

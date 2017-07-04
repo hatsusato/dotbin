@@ -9,4 +9,4 @@ fi
 readonly idevice_dir="${local_dir}/idevice"
 
 fusermount -qu "${idevice_dir}"
-sudo rmdir "${idevice_dir}"
+rmdir "${idevice_dir}"

@@ -12,4 +12,4 @@ readonly src_dir='/run/user/1000/gvfs'
 if test -e "${gvfs_dir}"; then
     Error "'${gvfs_dir}' is busy"
 fi
-sudo ln -s "${src_dir}" "${gvfs_dir}"
+ln -s "${src_dir}" "${gvfs_dir}"

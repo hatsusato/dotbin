@@ -18,6 +18,5 @@ do
         exit 1
     fi
 done
-sudo mkdir -p "${idevice_dir}"
-sudo chown "${USER}:${USER}" "${idevice_dir}"
+mkdir -p "${idevice_dir}"
 ifuse "${idevice_dir}"

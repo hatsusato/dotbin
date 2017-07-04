@@ -2,7 +2,11 @@
 
 . $(type -P utility.sh)
 
-readonly idevice_dir="/media/${USER}/idevice"
+readonly local_dir=$(Command local-media-dir)
+if test -z "${local_dir}"; then
+    Error 'media directory not found'
+fi
+readonly idevice_dir="${local_dir}/idevice"
 
 Command executable ifuse idevicepair
 if test -e "${idevice_dir}"; then

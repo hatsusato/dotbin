@@ -2,6 +2,10 @@
 
 . $(type -P utility.sh)
 
-readonly gvfs_dir="/media/${USER}/gvfs"
+readonly local_dir=$(Command local-media-dir)
+if test -z "${local_dir}"; then
+    Error 'media directory not found'
+fi
+readonly gvfs_dir="${local_dir}/gvfs"
 
 sudo unlink "${gvfs_dir}"

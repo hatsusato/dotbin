@@ -3,7 +3,7 @@
 . $(type -P utility.sh)
 
 if test "$1" -eq "$1" &>/dev/null; then
-    echo "$1"
+    exit
 else
     Error "'$1' is not integer"
 fi

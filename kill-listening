@@ -2,4 +2,10 @@
 
 . $(type -P utility.sh)
 
-kill $(lsof -t -i ":$1")
+if ((0 < $#)); then
+    port="$1"
+else
+    port='8000'
+fi
+pids=$(lsof -t -i ":${port}")
+test "${pids}" && kill ${pids}

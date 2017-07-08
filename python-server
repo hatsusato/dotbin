@@ -2,14 +2,10 @@
 
 . $(type -P utility.sh)
 
-Server() {
-    local pid=$(pgrep -u "${USER}" -a "$1" | fgrep "$*" | cut -d ' ' -f 1)
-    test "${pid}" && kill ${pid}
-    Command background "$@"
-}
-
-if (($# == 1)); then
-    Server python3 -m http.server "$1"
+if ((0 < $#)); then
+    port="$1"
 else
-    Server python3 -m http.server
+    port='8000'
 fi
+Command kill-listening "${port}"
+Command background python3 -m http.server "${port}"

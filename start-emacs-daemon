@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+if ! Command exists-emacs-daemon; then
+    emacs --daemon --no-site-file
+fi

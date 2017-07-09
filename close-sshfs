@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+target="${HOME}/$1"
+fusermount -quz "${target}"
+rmdir "${target}"

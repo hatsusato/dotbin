@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+host="$1"
+target="${HOME}/${host}"
+if test -e "${target}"; then
+    Error "'${target}' is busy"
+fi
+mkdir -p "${target}"
+home=$(ssh "${host}" 'echo "${HOME}"')
+sshfs "${host}:${home}" "${target}" -o reconnect

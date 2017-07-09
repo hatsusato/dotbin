@@ -1,0 +1,11 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+Command is-integer "$1"
+declare -i count="$1"
+shift
+for i in $(seq "${count}")
+do
+    "$@"
+done

@@ -2,7 +2,11 @@
 
 . $(type -P utility.sh)
 
-readonly idevice_dir="/media/${USER}/idevice"
+readonly local_dir=$(Command local-media-dir)
+if test -z "${local_dir}"; then
+    Error 'media directory not found'
+fi
+readonly idevice_dir="${local_dir}/idevice"
 
 Command executable ifuse idevicepair
 if test -e "${idevice_dir}"; then
@@ -11,9 +15,8 @@ fi
 while ! idevicepair pair
 do
     if ! Command yesno 'Retry (Y/n)?'; then
-        exit 0
+        exit 1
     fi
 done
-sudo mkdir -p "${idevice_dir}"
-sudo chown "${USER}:${USER}" "${idevice_dir}"
+mkdir -p "${idevice_dir}"
 ifuse "${idevice_dir}"

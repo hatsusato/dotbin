@@ -7,5 +7,5 @@ if ((0 < $#)); then
 else
     port='8000'
 fi
-Command kill-listening "${port}"
-Command background python3 -m http.server "${port}"
+pids=$(lsof -t -i ":${port}")
+test "${pids}" && kill ${pids}

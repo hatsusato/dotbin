@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+host="$1"
+port="$2"
+Command kill-listening '8000'
+ssh -afxN -L "8000:${host}:${port}" "${host}"

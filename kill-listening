@@ -7,5 +7,7 @@ if ((0 < $#)); then
 else
     port='8000'
 fi
-pids=$(lsof -t -i ":${port}")
-test "${pids}" && kill ${pids}
+pids=$(lsof -t -i ":${port}" || :)
+if test "${pids}"; then
+    kill ${pids}
+fi

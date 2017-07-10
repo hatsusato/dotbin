@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+if Command exists-emacs-daemon; then
+    emacsclient --eval '(progn (kill-emacs))'
+fi

@@ -3,5 +3,4 @@
 . $(type -P utility.sh)
 
 script=$(Command flexible-pattern "$1")
-shift
-grep -e "${script}" "$@"
+grep -e "${script}" "${@:2}"

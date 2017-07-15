@@ -1,0 +1,11 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+declare -a cmds
+for name in "$@"
+do
+    cmd=$(CommandPath "${name}")
+    cmds+=("${cmd}")
+done
+less "${cmds[@]}"

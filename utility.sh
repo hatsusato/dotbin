@@ -65,7 +65,7 @@ Bound() {
 }
 Parse() {
     if (($# == 0)); then
-        Assert <<<'Logic error: there is no argument to parse'
+        Assert <<<'Logic error: no argument to parse'
     fi
     case "$1" in
         --?* )

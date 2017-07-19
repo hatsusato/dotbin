@@ -5,8 +5,8 @@ if test "${DEBUG+'bound'}"; then
     # '$DEBUG' is bound variable
     set -vx
 fi
-readonly BIN_DIR=$(realpath "$(dirname "${BASH_SOURCE}")")
-export PATH="/bin:/usr/bin"
+readonly BIN_DIR=$(dirname "${BASH_SOURCE}")
+export PATH='/bin:/usr/bin'
 export LC_ALL='C'
 
 ErrorMessage() {

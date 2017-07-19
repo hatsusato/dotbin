@@ -42,17 +42,7 @@ CommandPath() {
     find -L "${BIN_DIR}" -name "$1" -type f -print -quit 2>/dev/null
 }
 Command() {
-    if (($# == 0)); then
-        Assert <<<'Logic error: there is no command specified'
-    fi
-    local cmd=$(CommandPath "$1")
-    if test -x "${cmd}"; then
-        PATH="${BIN_DIR}:${PATH}" "${cmd}" "${@:2}"
-    elif test "${cmd}"; then
-        Error <<<"Command: '$1' is not executable"
-    else
-        Error <<<"Command: '$1' does not exist"
-    fi
+    PATH="${BIN_DIR}:${PATH}" eval "$@"
 }
 ScriptFile() {
     realpath "$0"

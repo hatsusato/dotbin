@@ -9,7 +9,7 @@ Set() {
     declare -g "$1"="${parsed_}"
 }
 Get() {
-    while ((0 < $#))
+    while Bound 1 $#
     do
         arg="$1"
         case "${arg}" in
@@ -33,7 +33,7 @@ if ! Bound command; then
     Error "no command is specified"
 fi
 script="${address-}i\\${command}"
-if Bound file; then
+if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"
     else

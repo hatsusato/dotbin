@@ -9,7 +9,7 @@ Set() {
     declare -g "$1"="${parsed_}"
 }
 Get() {
-    while ((0 < $#))
+    while Bound 1 $#
     do
         arg="$1"
         case "${arg}" in
@@ -43,7 +43,7 @@ fi
 before=$(Command sed-escape "${before}")
 after=$(Command sed-escape "${after-}")
 script="${address-}s/${before}/${after}/${global-}"
-if Bound file; then
+if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"
     else

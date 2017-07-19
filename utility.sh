@@ -5,8 +5,8 @@ if test "${DEBUG+'bound'}"; then
     # '$DEBUG' is bound variable
     set -vx
 fi
-readonly BIN_DIR=$(realpath "$(dirname "${BASH_SOURCE}")")
-export PATH="/bin:/usr/bin"
+readonly BIN_DIR=$(dirname "${BASH_SOURCE}")
+export PATH='/bin:/usr/bin'
 export LC_ALL='C'
 
 ErrorMessage() {
@@ -38,21 +38,8 @@ Assert() {
     ErrorMessage "$@"
     return ${err}
 }
-CommandPath() {
-    find -L "${BIN_DIR}" -name "$1" -type f -print -quit 2>/dev/null
-}
 Command() {
-    if (($# == 0)); then
-        Assert <<<'Logic error: there is no command specified'
-    fi
-    local cmd=$(CommandPath "$1")
-    if test -x "${cmd}"; then
-        PATH="${BIN_DIR}:${PATH}" "${cmd}" "${@:2}"
-    elif test "${cmd}"; then
-        Error <<<"Command: '$1' is not executable"
-    else
-        Error <<<"Command: '$1' does not exist"
-    fi
+    PATH="${BIN_DIR}:${PATH}" eval "$@"
 }
 ScriptFile() {
     realpath "$0"
@@ -61,7 +48,11 @@ ScriptDir() {
     dirname "$(ScriptFile)"
 }
 Bound() {
-    test "${!1+'bound'}"
+    if (($# == 1)); then
+        test "${!1+'bound'}"
+    else
+        (("$1" <= "$2"))
+    fi
 }
 Parse() {
     if (($# == 0)); then
@@ -75,7 +66,7 @@ Parse() {
             parsed_="${1:2}"
             return 1;;
         -? )
-            if (($# == 1)); then
+            if ! Bound 2 $#; then
                 Error "argument after '$1' is missing"
             fi
             parsed_="$2"

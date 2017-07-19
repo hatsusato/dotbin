@@ -4,12 +4,9 @@
 
 name="$1"
 value="$2"
+file="${3-}"
 s='[[:space:]]*'
 pattern="^${s}${name}${s}="
 script="${name}=${value}"
 declare -i pos=$(Command line-number "${pattern}")
-if (($# < 3)); then
-    Command sed-write -a ${pos} "${script}"
-else
-    Command sed-write -a ${pos} "${script}" -f "$3"
-fi
+Command sed-write -a ${pos} "${script}" -f "${file}"

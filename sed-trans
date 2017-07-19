@@ -39,7 +39,7 @@ fi
 before=$(Command sed-escape "${before}")
 after=$(Command sed-escape "${after-}")
 script="${address-}y/${before}/${after}/"
-if Bound file; then
+if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"
     else

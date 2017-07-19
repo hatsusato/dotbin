@@ -28,7 +28,7 @@ Get() {
 declare -g parsed_ arg file address
 Get "$@"
 script="${address-}d"
-if Bound file; then
+if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"
     else

@@ -33,7 +33,7 @@ if ! Bound command; then
     Error "no command is specified"
 fi
 script="${address-}a\\${command}"
-if Bound file; then
+if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"
     else

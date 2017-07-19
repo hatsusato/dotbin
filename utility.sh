@@ -38,9 +38,6 @@ Assert() {
     ErrorMessage "$@"
     return ${err}
 }
-CommandPath() {
-    find -L "${BIN_DIR}" -name "$1" -type f -print -quit 2>/dev/null
-}
 Command() {
     PATH="${BIN_DIR}:${PATH}" eval "$@"
 }

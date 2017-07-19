@@ -48,7 +48,11 @@ ScriptDir() {
     dirname "$(ScriptFile)"
 }
 Bound() {
-    test "${!1+'bound'}"
+    if (($# == 1)); then
+        test "${!1+'bound'}"
+    else
+        (("$1" <= "$2"))
+    fi
 }
 Parse() {
     if (($# == 0)); then

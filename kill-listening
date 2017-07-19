@@ -2,7 +2,7 @@
 
 . $(type -P utility.sh)
 
-if ((0 < $#)); then
+if Bound 1 $#; then
     port="$1"
 else
     port='8000'

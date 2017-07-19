@@ -66,7 +66,7 @@ Parse() {
             parsed_="${1:2}"
             return 1;;
         -? )
-            if (($# == 1)); then
+            if ! Bound 2 $#; then
                 Error "argument after '$1' is missing"
             fi
             parsed_="$2"

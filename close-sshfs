@@ -3,7 +3,7 @@
 . $(type -P utility.sh)
 
 target="${HOME}/$1"
+fusermount -quz "${target}" || :
 if test -e "${target}"; then
-    fusermount -quz "${target}" || :
     rmdir "${target}"
 fi

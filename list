@@ -1,0 +1,24 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+while ((0 < $#))
+do
+    pattern="$1"
+    shift
+    if [[ "${pattern}" == '--' ]]; then
+        break
+    else
+        files+=$(ls | fgrep "${pattern}")
+        files+=$'\n'
+    fi
+done
+files=$(<<<"${files}" sort | uniq)
+for pattern in "$@"
+do
+    files=$(<<<"${files}" fgrep -v "${pattern}")
+done
+files=($(<<<"${files}" cat))
+if ((${#files[@]})); then
+    LC_ALL="$LANG" ls -d --color=auto "${files[@]}"
+fi

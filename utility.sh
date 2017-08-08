@@ -9,12 +9,15 @@ readonly BIN_DIR=$(dirname "${BASH_SOURCE}")
 export PATH='/bin:/usr/bin'
 export LC_ALL='C'
 
+Emptify() {
+    head -c ${#1} </dev/zero | tr '\0' ' '
+}
 ErrorMessage() {
     if (($# == 0)); then
         cat - >&2
     else
         local name=$(basename "$0")
-        local empty=$(head -c ${#name} </dev/zero | tr '\0' ' ')
+        local empty=$(Emptify "${name}")
         for msg in "$@"
         do
             echo "${name}: ${msg}"
@@ -75,4 +78,26 @@ Parse() {
             parsed_="$1"
             return 0;;
     esac
+}
+AtExit() {
+    err=$?
+    if Bound tmpfiles_; then
+        rm -f "${tmpfiles_[@]}"
+    fi
+    exit ${err}
+}
+Tempfiles() {
+    if Bound tmpfiles_; then
+        Error 'tmporary files have already created'
+    fi
+    declare -i count="${1-}"
+    if ((count <= 0)); then
+        count=1
+    fi
+    trap AtExit EXIT
+    declare -ag tmpfiles_
+    for i in $(seq ${count})
+    do
+        tmpfiles_+=($(mktemp))
+    done
 }

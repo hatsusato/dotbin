@@ -3,8 +3,7 @@
 . $(type -P utility.sh)
 
 prompt="${1-[Y/n]}"
-while true
-do
+while true; do
     read -N 1 -p "${prompt} " yesno
     if test -z "${yesno}"; then
         continue

@@ -3,8 +3,7 @@
 . $(type -P utility.sh)
 
 Command stop-emacs-daemon
-for i in $(seq 10)
-do
+for i in $(seq 10); do
     if ! Command exists-emacs-daemon; then
         break
     fi

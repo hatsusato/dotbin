@@ -18,8 +18,7 @@ ErrorMessage() {
     else
         local name=$(basename "$0")
         local empty=$(Emptify "${name}")
-        for msg in "$@"
-        do
+        for msg in "$@"; do
             echo "${name}: ${msg}"
             name="${empty}"
         done >&2
@@ -96,8 +95,7 @@ Tempfiles() {
     fi
     trap AtExit EXIT
     declare -ag tmpfiles_
-    for i in $(seq ${count})
-    do
+    for i in $(seq ${count}); do
         tmpfiles_+=($(mktemp))
     done
 }

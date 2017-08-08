@@ -76,3 +76,25 @@ Parse() {
             return 0;;
     esac
 }
+AtExit() {
+    err=$?
+    if Bound tmpfiles_; then
+        rm -f "${tmpfiles_[@]}"
+    fi
+    exit ${err}
+}
+Tempfiles() {
+    if Bound tmpfiles_; then
+        Error 'tmporary files have already created'
+    fi
+    declare -i count="${1-}"
+    if ((count <= 0)); then
+        count=1
+    fi
+    trap AtExit EXIT
+    declare -ag tmpfiles_
+    for i in $(seq ${count})
+    do
+        tmpfiles_+=($(mktemp))
+    done
+}

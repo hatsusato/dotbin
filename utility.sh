@@ -10,7 +10,7 @@ export PATH='/bin:/usr/bin'
 export LC_ALL='C'
 
 Emptify() {
-    head -c ${#1} </dev/zero | tr '\0' ' '
+    </dev/zero head -c ${#1} | tr '\0' ' '
 }
 ErrorMessage() {
     if (($# == 0)); then
@@ -59,7 +59,7 @@ Bound() {
 }
 Parse() {
     if (($# == 0)); then
-        Assert <<<'Logic error: no argument to parse'
+        <<<'Logic error: no argument to parse' Assert
     fi
     case "$1" in
         --?* )

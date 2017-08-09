@@ -2,6 +2,7 @@
 
 . $(type -P utility.sh)
 
+files=''
 while ((0 < $#)); do
     pattern="$1"
     shift

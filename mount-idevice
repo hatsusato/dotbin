@@ -12,7 +12,7 @@ if test -e "${idevice_dir}"; then
     Error "'${idevice_dir}' is busy"
 fi
 while ! idevicepair pair; do
-    if ! Command yesno 'Retry (Y/n)?'; then
+    if ! Command yesno 'Retry [Y/n]?'; then
         exit 1
     fi
 done

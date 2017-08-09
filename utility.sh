@@ -9,6 +9,9 @@ readonly BIN_DIR=$(dirname "${BASH_SOURCE}")
 export PATH='/bin:/usr/bin'
 export LC_ALL='C'
 
+HasStdin() {
+    ! test -t 0
+}
 Emptify() {
     </dev/zero head -c ${#1} | tr '\0' ' '
 }

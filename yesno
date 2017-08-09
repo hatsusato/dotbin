@@ -10,9 +10,9 @@ while true; do
     fi
     echo
     case "${yesno}" in
-        [yY]*)
+        [yY]* )
             exit 0;;
-        *)
+        * )
             exit 1;;
     esac
 done

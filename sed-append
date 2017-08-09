@@ -3,7 +3,6 @@
 . $(type -P utility.sh)
 . "${BIN_DIR}/sed-aux"
 
-declare -g parsed_ arg file address command
 while Bound 1 $#; do
     arg="$1"
     case "${arg}" in

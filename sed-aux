@@ -1,5 +1,6 @@
 #!/bin/bash
 
+declare -g parsed_ arg
 Set() {
     if Bound "$1"; then
         Error "extra option '${arg}' is specified"

@@ -19,10 +19,10 @@ ErrorMessage() {
     if HasStdin; then
         cat - >&2
     else
-        local name=$(basename "$0")
+        local name=$(basename "$0"):
         local -r empty=$(Emptify "${name}")
         for msg in "$@"; do
-            echo "${name}: ${msg}"
+            echo "${name} ${msg}"
             name="${empty}"
         done >&2
     fi

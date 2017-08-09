@@ -5,7 +5,11 @@
 if HasStdin; then
     input=$(cat -)
 else
-    input="$1"
+    if Bound 1 $#; then
+        input="$1"
+    else
+        Error 'no argument specified'
+    fi
 fi
 if test "${input}" -eq "${input}" &>/dev/null; then
     exit

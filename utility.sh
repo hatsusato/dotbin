@@ -60,8 +60,8 @@ Bound() {
     fi
 }
 Parse() {
-    if (($# == 0)); then
-        <<<'Logic error: no argument to parse' Assert
+    if Bound 1 $#; then
+        <<<'Parse: no argument specified' Error
     fi
     case "$1" in
         --?* )

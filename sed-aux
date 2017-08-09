@@ -1,1 +1,8 @@
 #!/bin/bash
+
+Set() {
+    if Bound "$1"; then
+        Error "extra option '${arg}' is specified"
+    fi
+    declare -gr "$1"="${parsed_}"
+}

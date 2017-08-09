@@ -1,13 +1,8 @@
 #!/bin/bash
 
 . $(type -P utility.sh)
+. "${BIN_DIR}/sed-aux"
 
-Set() {
-    if Bound "$1"; then
-        Error "extra option '${arg}' is specified"
-    fi
-    declare -gr "$1"="${parsed_}"
-}
 Get() {
     while Bound 1 $#; do
         arg="$1"

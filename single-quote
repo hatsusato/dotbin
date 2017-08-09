@@ -2,5 +2,5 @@
 
 . $(type -P utility.sh)
 
-quote="'"
+readonly quote="'"
 echo "${quote}$1${quote}"

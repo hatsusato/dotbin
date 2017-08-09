@@ -2,7 +2,7 @@
 
 . $(type -P utility.sh)
 
-src=$(Command canonical "$1")
-dst="${src}.$(date '+%N')"
+readonly src=$(Command canonical "$1")
+readonly dst="${src}.$(date '+%N')"
 cp -Lnpr "${src}" "${dst}"
 gvfs-trash "${dst}"

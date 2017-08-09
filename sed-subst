@@ -6,7 +6,7 @@ Set() {
     if Bound "$1"; then
         Error "extra option '${arg}' is specified"
     fi
-    declare -g "$1"="${parsed_}"
+    declare -gr "$1"="${parsed_}"
 }
 Get() {
     while Bound 1 $#; do
@@ -39,9 +39,9 @@ Get "$@"
 if ! Bound before; then
     Error "no command is specified"
 fi
-before=$(Command sed-escape "${before}")
-after=$(Command sed-escape "${after-}")
-script="${address-}s/${before}/${after}/${global-}"
+readonly before=$(Command sed-escape "${before}")
+readonly after=$(Command sed-escape "${after-}")
+readonly script="${address-}s/${before}/${after}/${global-}"
 if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"

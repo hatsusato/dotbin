@@ -17,7 +17,7 @@ ErrorMessage() {
         cat - >&2
     else
         local name=$(basename "$0")
-        local empty=$(Emptify "${name}")
+        local -r empty=$(Emptify "${name}")
         for msg in "$@"; do
             echo "${name}: ${msg}"
             name="${empty}"

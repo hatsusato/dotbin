@@ -7,6 +7,5 @@ if test -z "${local_dir}"; then
     Error 'media directory not found'
 fi
 readonly idevice_dir="${local_dir}/idevice"
-
 fusermount -qu "${idevice_dir}"
 rmdir "${idevice_dir}"

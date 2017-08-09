@@ -3,7 +3,6 @@
 . $(type -P utility.sh)
 
 readonly local_dir="/media/${USER}/local"
-
 if ! test -d "${local_dir}"; then
     sudo mkdir -p "${local_dir}" || exit 1
     sudo chown "${USER}:${USER}" "${local_dir}"

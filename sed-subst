@@ -3,34 +3,30 @@
 . $(type -P utility.sh)
 . "${BIN_DIR}/sed-aux"
 
-Get() {
-    while Bound 1 $#; do
-        arg="$1"
-        case "${arg}" in
-            -a* | --address=* )
-                Parse "$@" || shift $?
-                Set address;;
-            -f* | --file=* )
-                Parse "$@" || shift $?
-                Set file;;
-            -g | --global )
-                parsed_='g'
-                shift 1
-                Set global;;
-            * )
-                Parse "$@" || Error "unknown option '${arg}'"
-                shift 1
-                if Bound before; then
-                    Set after
-                else
-                    before="${arg}"
-                fi;;
-        esac
-    done
-}
-
 declare -g parsed_ arg file address global before after
-Get "$@"
+while Bound 1 $#; do
+    arg="$1"
+    case "${arg}" in
+        -a* | --address=* )
+            Parse "$@" || shift $?
+            Set address;;
+        -f* | --file=* )
+            Parse "$@" || shift $?
+            Set file;;
+        -g | --global )
+            parsed_='g'
+            shift 1
+            Set global;;
+        * )
+            Parse "$@" || Error "unknown option '${arg}'"
+            shift 1
+            if Bound before; then
+                Set after
+            else
+                before="${arg}"
+            fi;;
+    esac
+done
 if ! Bound before; then
     Error "no command is specified"
 fi

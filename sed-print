@@ -3,20 +3,16 @@
 . $(type -P utility.sh)
 . "${BIN_DIR}/sed-aux"
 
-Get() {
-    while Bound 1 $#; do
-        arg="$1"
-        case "${arg}" in
-            -a* | --address=* )
-                Parse "$@" || shift $?
-                Set address;;
-            * )
-                Error "unknown option '${arg}'";;
-        esac
-    done
-}
-
 declare -g parsed_ arg address
-Get "$@"
+while Bound 1 $#; do
+    arg="$1"
+    case "${arg}" in
+        -a* | --address=* )
+            Parse "$@" || shift $?
+            Set address;;
+        * )
+            Error "unknown option '${arg}'";;
+    esac
+done
 readonly script="${address-}p"
 sed -n -e "${script}"

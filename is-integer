@@ -2,8 +2,13 @@
 
 . $(type -P utility.sh)
 
-if test "$1" -eq "$1" &>/dev/null; then
+if HasStdin; then
+    input=$(cat -)
+else
+    input="$1"
+fi
+if test "${input}" -eq "${input}" &>/dev/null; then
     exit
 else
-    Error "'$1' is not integer"
+    Error "'${input}' is not integer"
 fi

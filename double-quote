@@ -3,4 +3,9 @@
 . $(type -P utility.sh)
 
 readonly quote='"'
-echo "${quote}$1${quote}"
+if HasStdin; then
+    input=$(cat -)
+else
+    input="$1"
+fi
+echo "${quote}${input}${quote}"

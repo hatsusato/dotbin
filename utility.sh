@@ -16,7 +16,7 @@ Emptify() {
     </dev/zero head -c ${#1} | tr '\0' ' '
 }
 ErrorMessage() {
-    if (($# == 0)); then
+    if HasStdin; then
         cat - >&2
     else
         local name=$(basename "$0")

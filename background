@@ -2,4 +2,4 @@
 
 . $(type -P utility.sh)
 
-"$@" &>/dev/null &
+eval "$@" &>/dev/null &

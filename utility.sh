@@ -91,7 +91,7 @@ AtExit() {
 }
 Tempfiles() {
     if Bound tmpfiles_; then
-        Error 'tmporary files have already created'
+        <<<'Tempfiles: tmporary files have already created' Error
     fi
     local -i count="${1-}"
     if ((count <= 0)); then

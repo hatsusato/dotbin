@@ -63,6 +63,7 @@ Parse() {
     if Bound 1 $#; then
         <<<'Parse: no argument specified' Error
     fi
+    declare -g parsed_
     case "$1" in
         --?* )
             parsed_="${1#*=}"
@@ -82,7 +83,7 @@ Parse() {
     esac
 }
 AtExit() {
-    err=$?
+    local -i err=$?
     if Bound tmpfiles_; then
         rm -f "${tmpfiles_[@]}"
     fi
@@ -92,7 +93,7 @@ Tempfiles() {
     if Bound tmpfiles_; then
         Error 'tmporary files have already created'
     fi
-    declare -i count="${1-}"
+    local -i count="${1-}"
     if ((count <= 0)); then
         count=1
     fi

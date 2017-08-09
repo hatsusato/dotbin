@@ -9,4 +9,7 @@ for i in $(seq 10); do
     fi
     sleep 0.1
 done
+if Command exists-emacs-daemon; then
+    Error 'emacs daemon have not be stopped'
+fi
 Command start-emacs-daemon

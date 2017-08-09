@@ -10,6 +10,4 @@ if ! test -d "${local_dir}"; then
         exit $?
     fi
 fi
-if test -d "${local_dir}"; then
-    echo "${local_dir}"
-fi
+echo "${local_dir}"

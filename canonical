@@ -1,9 +1,0 @@
-#!/bin/bash
-
-. $(type -P utility.sh)
-
-if test -e "$1"; then
-    realpath "$1"
-else
-    Error "'$1' does not exist"
-fi

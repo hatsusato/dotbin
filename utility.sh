@@ -64,7 +64,7 @@ Bound() {
 }
 Parse() {
     if Bound 1 $#; then
-        <<<'Parse: no argument specified' Error
+        <<<'Parse' Error 'no argument specified'
     fi
     declare -g parsed_
     case "$1" in
@@ -76,7 +76,7 @@ Parse() {
             return 1;;
         -? )
             if ! Bound 2 $#; then
-                Error "argument after '$1' is missing"
+                <<<'Parse' Error "argument after '$1' is missing"
             fi
             parsed_="$2"
             return 2;;
@@ -94,7 +94,7 @@ AtExit() {
 }
 Tempfiles() {
     if Bound tmpfiles_; then
-        <<<'Tempfiles: tmporary files have already created' Error
+        <<<'Tempfiles' Error 'tmporary files have already created'
     fi
     local -i count="${1-}"
     if ((count <= 0)); then

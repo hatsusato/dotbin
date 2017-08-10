@@ -92,9 +92,9 @@ AtExit() {
     fi
     exit ${err}
 }
-Tempfiles() {
+Tmpfiles() {
     if Bound tmpfiles_; then
-        <<<'Tempfiles' Error 'tmporary files have already created'
+        <<<'Tmpfiles' Error 'temporary files have already created'
     fi
     local -i count="${1-}"
     if ((count <= 0)); then

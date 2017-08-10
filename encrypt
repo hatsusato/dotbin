@@ -5,7 +5,7 @@
 readonly name=$(basename "$1")
 readonly dir=$(dirname "$1")
 readonly target="${name}.gpg"
-Tempfiles
+Tmpfiles
 readonly tmpfile="${tmpfiles_[0]}"
 tar -c -f "${tmpfile}" -C "${dir}" -h -z "${name}"
 gpg --batch --default-recipient-self -o "${target}" -e "${tmpfile}"

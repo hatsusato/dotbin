@@ -19,7 +19,7 @@ while Bound 1 $#; do
     esac
 done
 if ! Bound command; then
-    Error "no command is specified"
+    Error 'no command is specified'
 fi
 readonly script="${address-}a\\${command}"
 if Bound file && test "${file}"; then

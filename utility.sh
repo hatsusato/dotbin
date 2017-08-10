@@ -17,15 +17,18 @@ Emptify() {
 }
 ErrorMessage() {
     if HasStdin; then
-        cat - >&2
+        local name=$(cat -)
     else
-        local name=$(basename "$0"):
-        local -r empty=$(Emptify "${name}")
-        for msg in "$@"; do
-            echo "${name} ${msg}"
-            name="${empty}"
-        done >&2
+        local name=$(basename "$0")
     fi
+    if test "${name}"; then
+        name+=': '
+    fi
+    local -r empty=$(Emptify "${name}")
+    for msg in "$@"; do
+        echo "${name}${msg}"
+        name="${empty}"
+    done >&2
 }
 Error() {
     local -i err=$?

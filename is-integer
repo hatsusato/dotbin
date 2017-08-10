@@ -2,8 +2,18 @@
 
 . $(type -P utility.sh)
 
-if test "$1" -eq "$1" &>/dev/null; then
+if HasStdin; then
+    input=$(cat -)
+else
+    if Bound 1 $#; then
+        input="$1"
+    else
+        Error 'no argument specified'
+    fi
+fi
+if test "${input}" -eq "${input}" &>/dev/null; then
+    echo "${input}"
     exit
 else
-    Error "'$1' is not integer"
+    Error "'${input}' is not integer"
 fi

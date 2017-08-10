@@ -2,7 +2,7 @@
 
 . $(type -P utility.sh)
 
-target="${HOME}/$1"
+readonly target="${HOME}/$1"
 fusermount -quz "${target}" || :
 if test -e "${target}"; then
     rmdir "${target}"

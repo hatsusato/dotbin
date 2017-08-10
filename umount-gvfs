@@ -7,5 +7,4 @@ if test -z "${local_dir}"; then
     Error 'media directory not found'
 fi
 readonly gvfs_dir="${local_dir}/gvfs"
-
 unlink "${gvfs_dir}"

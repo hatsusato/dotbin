@@ -1,48 +1,37 @@
 #!/bin/bash
 
 . $(type -P utility.sh)
+. "${BIN_DIR}/sed-aux"
 
-Set() {
-    if Bound "$1"; then
-        Error "extra option '${arg}' is specified"
-    fi
-    declare -g "$1"="${parsed_}"
-}
-Get() {
-    while Bound 1 $#
-    do
-        arg="$1"
-        case "${arg}" in
-            -a* | --address=* )
-                Parse "$@" || shift $?
-                Set address;;
-            -f* | --file=* )
-                Parse "$@" || shift $?
-                Set file;;
-            -g | --global )
-                parsed_='g'
-                shift 1
-                Set global;;
-            * )
-                Parse "$@" || Error "unknown option '${arg}'"
-                shift 1
-                if Bound before; then
-                    Set after
-                else
-                    before="${arg}"
-                fi;;
-        esac
-    done
-}
-
-declare -g parsed_ arg file address global before after
-Get "$@"
+while Bound 1 $#; do
+    arg="$1"
+    case "${arg}" in
+        -a* | --address=* )
+            Parse "$@" || shift $?
+            Set address;;
+        -f* | --file=* )
+            Parse "$@" || shift $?
+            Set file;;
+        -g | --global )
+            parsed_='g'
+            shift 1
+            Set global;;
+        * )
+            Parse "$@" || Error "unknown option '${arg}'"
+            shift 1
+            if Bound before; then
+                Set after
+            else
+                before="${arg}"
+            fi;;
+    esac
+done
 if ! Bound before; then
-    Error "no command is specified"
+    Error 'no command is specified'
 fi
-before=$(Command sed-escape "${before}")
-after=$(Command sed-escape "${after-}")
-script="${address-}s/${before}/${after}/${global-}"
+readonly before=$(Command sed-escape "${before}")
+readonly after=$(Command sed-escape "${after-}")
+readonly script="${address-}s/${before}/${after}/${global-}"
 if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"

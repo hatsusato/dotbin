@@ -2,4 +2,12 @@
 
 . $(type -P utility.sh)
 
-cat "$@" | tee >(xclip -selection clipboard)
+if (($# == 0)) && ! HasStdin; then
+    read -r line
+    echo "${line}" | xclip -selection clipboard
+else
+    if HasStdin; then
+        set -- - "$@"
+    fi
+    cat "$@" | tee >(xclip -selection clipboard)
+fi

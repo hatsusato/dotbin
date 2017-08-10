@@ -2,5 +2,10 @@
 
 . $(type -P utility.sh)
 
-quote="'"
-echo "${quote}$1${quote}"
+readonly quote="'"
+if HasStdin; then
+    input=$(cat -)
+else
+    input="$1"
+fi
+echo "${quote}${input}${quote}"

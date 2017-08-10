@@ -2,5 +2,5 @@
 
 . $(type -P utility.sh)
 
-s='[[:space:]]'
-Command sed-subst -g "${s}\+" "${s}\*" <<<"$1"
+readonly s='[[:space:]]'
+<<<"$1" Command sed-subst -g "${s}\+" "${s}\*"

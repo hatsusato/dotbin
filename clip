@@ -3,11 +3,10 @@
 . $(type -P utility.sh)
 
 if (($# == 0)) && ! HasStdin; then
-    read -r line
-    echo "${line}" | xclip -selection clipboard
+    read -ers line
+    echo -n "${line}"
+elif HasStdin; then
+    cat - "$@"
 else
-    if HasStdin; then
-        set -- - "$@"
-    fi
-    cat "$@" | tee >(xclip -selection clipboard)
-fi
+    cat "$@"
+fi | xclip -selection clipboard

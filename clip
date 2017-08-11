@@ -2,11 +2,4 @@
 
 . $(type -P utility.sh)
 
-if (($# == 0)) && ! HasStdin; then
-    read -ers line
-    echo -n "${line}"
-elif HasStdin; then
-    cat - "$@"
-else
-    cat "$@"
-fi | xclip -selection clipboard
+Command input | xclip -selection clipboard

@@ -63,7 +63,7 @@ Bound() {
     fi
 }
 Parse() {
-    if Bound 1 $#; then
+    if (($# == 0)); then
         <<<'Parse' Error 'no argument specified'
     fi
     declare -g parsed_

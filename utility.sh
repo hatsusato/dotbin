@@ -47,7 +47,7 @@ Assert() {
     return ${err}
 }
 Command() {
-    PATH="${BIN_DIR}:${PATH}" eval "$@"
+    PATH="${BIN_DIR}:${PATH}" eval "${@@Q}"
 }
 ScriptFile() {
     realpath "$0"

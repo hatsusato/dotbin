@@ -1,33 +1,22 @@
 #!/bin/bash
 
 . $(type -P utility.sh)
+. "${BIN_DIR}/sed-aux"
 
-Set() {
-    if Bound "$1"; then
-        Error "extra option '${arg}' is specified"
-    fi
-    declare -g "$1"="${parsed_}"
-}
-Get() {
-    while Bound 1 $#
-    do
-        arg="$1"
-        case "${arg}" in
-            -a* | --address=* )
-                Parse "$@" || shift $?
-                Set address;;
-            -f* | --file=* )
-                Parse "$@" || shift $?
-                Set file;;
-            * )
-                Error "unknown option '${arg}'";;
-        esac
-    done
-}
-
-declare -g parsed_ arg file address
-Get "$@"
-script="${address-}d"
+while Bound 1 $#; do
+    arg="$1"
+    case "${arg}" in
+        -a* | --address=* )
+            Parse "$@" || shift $?
+            Set address;;
+        -f* | --file=* )
+            Parse "$@" || shift $?
+            Set file;;
+        * )
+            Error "unknown option '${arg}'";;
+    esac
+done
+readonly script="${address-}d"
 if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"

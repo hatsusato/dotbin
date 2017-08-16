@@ -2,4 +2,12 @@
 
 . $(type -P utility.sh)
 
-which "$@" &>/dev/null
+declare -a msg
+for cmd in "$@"; do
+    if ! which "${cmd}" &>/dev/null; then
+        msg+=("'${cmd}' not found")
+    fi
+done
+if Bound msg; then
+    Error "${msg[@]}"
+fi

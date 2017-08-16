@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+if HasStdin; then
+    cat - "$@"
+elif Bound 1 $#; then
+    cat "$@"
+else
+    read -ers line
+    echo -n "${line}"
+fi

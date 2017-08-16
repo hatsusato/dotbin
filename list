@@ -2,8 +2,8 @@
 
 . $(type -P utility.sh)
 
-while ((0 < $#))
-do
+files=''
+while ((0 < $#)); do
     pattern="$1"
     shift
     if [[ "${pattern}" == '--' ]]; then
@@ -14,8 +14,7 @@ do
     fi
 done
 files=$(<<<"${files}" sort | uniq)
-for pattern in "$@"
-do
+for pattern in "$@"; do
     files=$(<<<"${files}" fgrep -v "${pattern}")
 done
 files=($(<<<"${files}" cat))

@@ -2,9 +2,8 @@
 
 . $(type -P utility.sh)
 
-src=$(Command canonical "$1")
-dst="$2"
-
+readonly src=$(realpath "$1")
+readonly dst="$2"
 if test -h "${dst}"; then
     unlink "${dst}"
 elif test -e "${dst}"; then

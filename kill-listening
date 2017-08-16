@@ -7,7 +7,7 @@ if Bound 1 $#; then
 else
     port='8000'
 fi
-pids=$(lsof -t -i ":${port}" || :)
+readonly pids=$(lsof -t -i ":${port}" || :)
 if test "${pids}"; then
     kill ${pids}
 fi

@@ -2,5 +2,5 @@
 
 . $(type -P utility.sh)
 
-script=$(Command flexible-pattern "$1")
+readonly script=$(Command flexible-pattern "$1")
 grep -e "${script}" "${@:2}"

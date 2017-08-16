@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+Command input | sha256sum | head -c -4 | Command clip

@@ -2,7 +2,15 @@
 
 . $(type -P utility.sh)
 
-src=$(Command canonical "$1")
-dst="${src}.$(date '+%N')"
+readonly src="$1"
+readonly dst="${src}.$(date '+%N')"
 cp -Lnpr "${src}" "${dst}"
 gvfs-trash "${dst}"
+if Bound XDG_DATA_HOME; then
+    readonly xdg_dir="${XDG_DATA_HOME}"
+else
+    readonly xdg_dir="${HOME}/.local/share"
+fi
+readonly name=$(basename "${dst}")
+readonly trash_file="${xdg_dir}/Trash/files/${name}"
+echo "'${src}' is backed up to '${trash_file}'"

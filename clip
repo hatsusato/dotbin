@@ -2,4 +2,4 @@
 
 . $(type -P utility.sh)
 
-cat "$@" | tee >(xclip -selection clipboard)
+Command input | xclip -selection clipboard

@@ -1,0 +1,1 @@
+complete-alias/completions/bash_completion.sh

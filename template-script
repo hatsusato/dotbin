@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+for file in "$@"; do
+    cat <<'EOF' >"${file}"
+#!/bin/bash
+
+. $(type -P utility.sh)
+EOF
+    chmod +x "${file}"
+done

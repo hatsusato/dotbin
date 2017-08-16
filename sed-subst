@@ -29,9 +29,9 @@ done
 if ! Bound before; then
     Error 'no command is specified'
 fi
-readonly before=$(Command sed-escape "${before}")
-readonly after=$(Command sed-escape "${after-}")
-readonly script="${address-}s/${before}/${after}/${global-}"
+readonly pattern=$(Command sed-escape "${before}")
+readonly replace=$(Command sed-escape "${after-}")
+readonly script="${address-}s/${pattern}/${replace}/${global-}"
 if Bound file && test "${file}"; then
     if test -w "${file}"; then
         sed -i -e "${script}" "${file}"

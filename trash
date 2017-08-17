@@ -1,0 +1,32 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+Escape() {
+    echo -n "$1" | while true; do
+        read -N 1 c
+        if test -z "${c}"; then
+            echo -n "${out}"
+            break
+        elif [[ "${c}" =~ [-.0-9A-Z_a-z~] ]]; then
+            out+="${c}"
+        else
+            out+=$(printf '%%%02X' "'${c}")
+        fi
+    done
+}
+
+if Bound XDG_DATA_HOME; then
+    readonly xdg_dir="${XDG_DATA_HOME}"
+else
+    readonly xdg_dir="${HOME}/.local/share"
+fi
+readonly trash_dir="${xdg_dir}/Trash/files"
+readonly info_dir="${xdg_dir}/Trash/info"
+for arg in "$@"; do
+    escaped=$(Escape "${arg}")
+    grep -lr -e "${escaped}" "${info_dir}"
+done
+if (($# == 0)); then
+    LC_ALL="${LANG}" ls --color=auto "${trash_dir}"
+fi

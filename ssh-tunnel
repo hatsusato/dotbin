@@ -2,7 +2,18 @@
 
 . $(type -P utility.sh)
 
+if (($# == 0)); then
+    Error 'no hostname specified'
+fi
 readonly host="$1"
-readonly port="$2"
+readonly config="${HOME}/.ssh-tunnel"
+if Bound 2 $#; then
+    readonly port="$2"
+elif test -f "${config}"; then
+    line=$(<"${config}" grep -m 1 -e "^${host}:")
+    readonly port="${line#*: }"
+else
+    Error "no port specified"
+fi
 Command kill-listening '8000'
 ssh -afxN -L "8000:${host}:${port}" "${host}"

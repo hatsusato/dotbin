@@ -1,0 +1,30 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+GetHost() {
+    local host="$1"
+    host="${host##*//}"
+    host="${host%%/*}"
+    host="${host%%:*}"
+    echo "${host}"
+}
+
+for arg in "$@"; do
+    if test "${arg%%-*}"; then
+        host=$(GetHost "${arg}")
+        config="${HOME}/.${host}.wgetrc"
+        if test -f "${config}"; then
+            break
+        fi
+    fi
+done
+declare -a opts
+if Bound config && test -f "${config}"; then
+    while IFS= read line; do
+        if test "${line%%#*}"; then
+            opts+=("${line@P}")
+        fi
+    done <"${config}"
+fi
+wget "${opts[@]}" "$@"

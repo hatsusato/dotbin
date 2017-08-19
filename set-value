@@ -6,8 +6,7 @@ readonly name="$1"
 readonly value="$2"
 readonly file="${3-}"
 readonly script="${name}=${value}"
-readonly s='[[:space:]]*'
-readonly pattern="^${s}${name}${s}="
+readonly pattern="^\s*${name}\s*="
 declare -ir pos=$(Command line-number "${pattern}")
 if ((0 < pos)); then
     Command sed-write -a ${pos} "${script}" -f "${file}"

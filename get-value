@@ -2,6 +2,5 @@
 
 . $(type -P utility.sh)
 
-readonly s='[[:space:]]*'
-readonly script="s/^${s}$1${s}=\(.*\)\$/\1/"
+readonly script="s/^\s*$1\s*=\(.*\)\$/\1/"
 Command sed-print -a "${script}"

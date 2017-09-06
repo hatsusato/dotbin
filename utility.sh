@@ -103,3 +103,11 @@ MakeTemp() {
         tmpfiles_+=("$(mktemp)")
     done
 }
+MakeFifo() {
+    trap AtExit EXIT
+    declare -ag tmpfiles_
+    local name=$(mktemp -u)
+    tmpfiles_+=("${name}")
+    mkfifo -m 600 "${name}"
+    echo "${name}"
+}

@@ -92,7 +92,7 @@ AtExit() {
     fi
     exit ${err}
 }
-Tmpfiles() {
+MakeTemp() {
     local -i count="${1-}"
     if ((count <= 0)); then
         return

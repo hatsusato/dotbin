@@ -92,17 +92,17 @@ AtExit() {
     fi
     exit ${err}
 }
-Tmpfiles() {
-    if Bound tmpfiles_; then
-        <<<'Tmpfiles' Error 'temporary files have already created'
-    fi
-    local -i count="${1-}"
-    if ((count <= 0)); then
-        count=1
-    fi
+MakeTemp() {
     trap AtExit EXIT
     declare -ag tmpfiles_
-    for i in $(seq ${count}); do
-        tmpfiles_+=($(mktemp))
-    done
+    tmpfiles_+=("$(mktemp)")
+    echo "${tmpfiles_[-1]}"
+}
+MakeFifo() {
+    trap AtExit EXIT
+    declare -ag tmpfiles_
+    local name=$(mktemp -u)
+    tmpfiles_+=("${name}")
+    mkfifo -m 600 "${name}"
+    echo "${name}"
 }

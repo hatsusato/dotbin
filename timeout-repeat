@@ -15,3 +15,22 @@ DESCRIPTION
 EOF
     exit
 }
+
+readonly limit="$1"
+shift
+readonly func="Loop${RANDOM}"
+readonly cmd="${@@Q}"
+readonly script=$(cat <<EOF
+${func}() {
+    while true; do
+        local output=\$(bash -c ${cmd@Q})
+        if test "\${output}"; then
+            echo "\${output}"
+            return
+        fi
+    done
+}
+${func}
+EOF
+         )
+timeout "${limit}" bash -c "${script}"

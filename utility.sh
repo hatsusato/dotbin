@@ -93,15 +93,10 @@ AtExit() {
     exit ${err}
 }
 MakeTemp() {
-    local -i count="${1-}"
-    if ((count <= 0)); then
-        return
-    fi
     trap AtExit EXIT
     declare -ag tmpfiles_
-    for i in $(seq ${count}); do
-        tmpfiles_+=("$(mktemp)")
-    done
+    tmpfiles_+=("$(mktemp)")
+    echo "${tmpfiles_[-1]}"
 }
 MakeFifo() {
     trap AtExit EXIT

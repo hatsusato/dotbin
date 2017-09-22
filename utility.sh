@@ -101,8 +101,8 @@ MakeTemp() {
 MakeFifo() {
     trap AtExit EXIT
     declare -ag tmpfiles_
-    local name=$(mktemp -u)
-    tmpfiles_+=("${name}")
-    mkfifo -m 600 "${name}"
-    echo "${name}"
+    local fifo_name=$(mktemp -u)
+    tmpfiles_+=("${fifo_name}")
+    mkfifo -m 600 "${fifo_name}"
+    echo "${fifo_name}"
 }

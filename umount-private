@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+readonly encfs_dir="${HOME}/Private"
+fusermount -u "${encfs_dir}"

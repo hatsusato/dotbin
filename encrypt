@@ -2,10 +2,12 @@
 
 . $(type -P utility.sh)
 
-readonly name=$(basename "$1")
-readonly dir=$(dirname "$1")
-readonly target="${name}.gpg"
-Tmpfiles
-readonly tmpfile="${tmpfiles_[0]}"
-tar -c -f "${tmpfile}" -C "${dir}" -h -z "${name}"
-gpg --batch --default-recipient-self -o "${target}" -e "${tmpfile}"
+name=$(basename "$1")
+dir=$(dirname "$1")
+target="${name}.gpg"
+fifo=$(MakeFifo)
+if test -f "${target}"; then
+    Error "'${target}' alread exists"
+fi
+tar -c -f "${fifo}" -C "${dir}" -h -z "${name}"
+gpg --batch --default-recipient-self -o "${target}" -e "${fifo}"

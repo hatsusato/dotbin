@@ -2,6 +2,6 @@
 
 . $(type -P utility.sh)
 
-if ! Command exists-emacs-daemon; then
+if ! Command emacs-daemon-exists; then
     emacs --daemon --no-site-file
 fi

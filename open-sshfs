@@ -4,9 +4,7 @@
 
 readonly host="$1"
 readonly target="${HOME}/${host}"
-if test -e "${target}"; then
-    Error "'${target}' is busy"
-fi
+Command close-sshfs "${host}"
 mkdir -p "${target}"
 readonly home=$(ssh "${host}" 'echo "${HOME}"')
 sshfs "${host}:${home}" "${target}" -o reconnect

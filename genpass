@@ -1,0 +1,47 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+Usage() {
+    cat <<EOF
+Usage: $(basename "$0") [options] [length]
+
+Options:
+  -x  Reduce the number of interchange of character types
+  -h  Print this usage
+
+Length:
+  The number of password to generate
+  The Default value is 32
+EOF
+    exit
+}
+ShiftChar() {
+    local digit=$(<<<"$1" tr -cd '[0-9]')
+    local upper=$(<<<"$1" tr -cd '[A-Z]')
+    local lower=$(<<<"$1" tr -cd '[a-z]')
+    echo "${digit}${upper}${lower}"
+}
+
+declare -i len=32
+while Bound 1 $#; do
+    case "$1" in
+        -x) x='';;
+        -h) Usage;;
+        *) len="$1";;
+    esac
+    shift
+done
+declare -i score=0 max=0
+result=""
+for pass in $(pwgen -Cs ${len}); do
+    if Bound x; then
+        pass=$(ShiftChar "${pass}")
+    fi
+    score=$(<<<"${pass}" pwscore 2>/dev/null || :)
+    if ((max < score)); then
+        max=${score}
+        result="${pass}"
+    fi
+done
+echo "${result}"

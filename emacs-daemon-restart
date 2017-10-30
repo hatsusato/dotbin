@@ -8,12 +8,14 @@ exists_emacs_daemon() {
 
 Command emacs-daemon-stop
 for i in $(seq 10); do
-    if ! exists_emacs_daemon; then
+    if exists_emacs_daemon; then
+        sleep 0.1
+    else
         break
     fi
-    sleep 0.1
 done
 if exists_emacs_daemon; then
-    Error 'emacs daemon have not be stopped'
+    Error 'emacs daemon has not stopped'
+else
+    Command emacs-daemon-start
 fi
-Command emacs-daemon-start

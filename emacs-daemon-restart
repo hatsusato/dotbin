@@ -2,14 +2,14 @@
 
 . $(type -P utility.sh)
 
-Command stop-emacs-daemon
+Command emacs-daemon-stop
 for i in $(seq 10); do
-    if ! Command exists-emacs-daemon; then
+    if ! Command emacs-daemon-exists; then
         break
     fi
     sleep 0.1
 done
-if Command exists-emacs-daemon; then
+if Command emacs-daemon-exists; then
     Error 'emacs daemon have not be stopped'
 fi
-Command start-emacs-daemon
+Command emacs-daemon-start

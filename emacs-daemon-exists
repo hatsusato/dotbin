@@ -1,5 +1,0 @@
-#!/bin/bash
-
-. $(type -P utility.sh)
-
-pgrep -u "${USER}" -f 'emacs --daemon' >/dev/null

@@ -2,14 +2,18 @@
 
 . $(type -P utility.sh)
 
+exists_emacs_daemon() {
+    pgrep -u "${USER}" -f 'emacs --daemon' >/dev/null
+}
+
 Command emacs-daemon-stop
 for i in $(seq 10); do
-    if ! Command emacs-daemon-exists; then
+    if ! exists_emacs_daemon; then
         break
     fi
     sleep 0.1
 done
-if Command emacs-daemon-exists; then
+if exists_emacs_daemon; then
     Error 'emacs daemon have not be stopped'
 fi
 Command emacs-daemon-start

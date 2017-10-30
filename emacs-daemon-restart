@@ -17,5 +17,5 @@ done
 if exists_emacs_daemon; then
     Error 'emacs daemon has not stopped'
 else
-    Command emacs-daemon-start
+    emacs --daemon --no-site-file
 fi

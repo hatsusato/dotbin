@@ -96,20 +96,6 @@ AtExit() {
     fi
     exit ${err}
 }
-MakeTemp() {
-    trap AtExit EXIT
-    declare -ag tmpfiles_
-    tmpfiles_+=("$(mktemp)")
-    echo "${tmpfiles_[-1]}"
-}
-MakeFifo() {
-    trap AtExit EXIT
-    declare -ag tmpfiles_
-    local fifo_name=$(mktemp -u)
-    tmpfiles_+=("${fifo_name}")
-    mkfifo -m 600 "${fifo_name}"
-    echo "${fifo_name}"
-}
 Trap() {
     trap AtExit EXIT
     declare -ag tmpfiles_

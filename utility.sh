@@ -88,21 +88,21 @@ Parse() {
 AtExit() {
     local -i err=$?
     if Bound tmpfiles_; then
-        rm -f "${tmpfiles_[@]}"
+        local opts='-f'
+        if test "${DEBUG+'bound'}"; then
+            opts+='v'
+        fi
+        rm "${opts}" "${tmpfiles_[@]}"
     fi
     exit ${err}
 }
-MakeTemp() {
+Trap() {
     trap AtExit EXIT
     declare -ag tmpfiles_
-    tmpfiles_+=("$(mktemp)")
-    echo "${tmpfiles_[-1]}"
+    tmpfiles_+=("$1")
 }
-MakeFifo() {
-    trap AtExit EXIT
-    declare -ag tmpfiles_
-    local fifo_name=$(mktemp -u)
-    tmpfiles_+=("${fifo_name}")
-    mkfifo -m 600 "${fifo_name}"
-    echo "${fifo_name}"
+Fifo() {
+    local fifo=$(mktemp -u)
+    mkfifo -m 600 "${fifo}"
+    echo "${fifo}"
 }

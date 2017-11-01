@@ -1,0 +1,9 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+name=$(basename "$1")
+dir=$(dirname "$1")
+tmp=$(mktemp)
+tar -c -f "${tmp}" -C "${dir}" -h -z "${name}"
+echo "${tmp}"

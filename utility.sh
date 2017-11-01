@@ -106,3 +106,13 @@ MakeFifo() {
     mkfifo -m 600 "${fifo_name}"
     echo "${fifo_name}"
 }
+Trap() {
+    trap AtExit EXIT
+    declare -ag tmpfiles_
+    tmpfiles_+=("$1")
+}
+Fifo() {
+    local fifo=$(mktemp -u)
+    mkfifo -m 600 "${fifo}"
+    echo "${fifo}"
+}

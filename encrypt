@@ -5,9 +5,10 @@
 name=$(basename "$1")
 dir=$(dirname "$1")
 target="${name}.gpg"
-fifo=$(MakeFifo)
 if test -f "${target}"; then
     Error "'${target}' alread exists"
 fi
-tar -c -f "${fifo}" -C "${dir}" -h -z "${name}"
-gpg --batch --default-recipient-self -o "${target}" -e "${fifo}"
+tmp=$(mktemp)
+Trap "${tmp}"
+tar -c -f "${tmp}" -C "${dir}" -h -z "${name}"
+gpg --batch --default-recipient-self -o "${target}" -e "${tmp}" </dev/null

@@ -9,4 +9,5 @@ if test -f "${target}"; then
 fi
 tmp=$(Command compress "$1")
 Trap "${tmp}"
-gpg --batch --default-recipient-self -o "${target}" -e "${tmp}" </dev/null
+opts=(--batch --personal-cipher-preferences camellia256)
+gpg "${opts}" -o "${target}" -c "${tmp}" </dev/null

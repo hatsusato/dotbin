@@ -88,7 +88,11 @@ Parse() {
 AtExit() {
     local -i err=$?
     if Bound tmpfiles_; then
-        rm -f "${tmpfiles_[@]}"
+        local opts='-f'
+        if test "${DEBUG+'bound'}"; then
+            opts+='v'
+        fi
+        rm "${opts}" "${tmpfiles_[@]}"
     fi
     exit ${err}
 }

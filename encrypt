@@ -2,11 +2,15 @@
 
 . $(type -P utility.sh)
 
-name=$(basename "$1")
-target="${name}.gpg"
-if test -f "${target}"; then
-    Error "'${target}' alread exists"
+opts=(--batch --default-recipient-self)
+if HasStdin; then
+    input='-'
+else
+    input="$1"
+    output="${input}.gpg"
+    if test -f "${output}"; then
+        Error "'${output}' already exists"
+    fi
+    opts+=(-o "${output}")
 fi
-tmp=$(Command compress "$1")
-Trap "${tmp}"
-gpg --batch --default-recipient-self -o "${target}" -e "${tmp}" </dev/null
+gpg "${opts[@]}" -e "${input}"

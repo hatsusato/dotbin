@@ -2,12 +2,15 @@
 
 . $(type -P utility.sh)
 
-name=$(basename "$1")
-target="${name}.gpg"
-if test -f "${target}"; then
-    Error "'${target}' alread exists"
-fi
-tmp=$(Command compress "$1")
-Trap "${tmp}"
 opts=(--batch --personal-cipher-preferences camellia256)
-gpg "${opts}" -o "${target}" -c "${tmp}" </dev/null
+if HasStdin; then
+    input='-'
+else
+    input="$1"
+    output="${input}.gpg"
+    if test -f "${output}"; then
+        Error "'${output}' already exists"
+    fi
+    opts+=(-o "${output}")
+fi
+gpg "${opts[@]}" -c "${input}"

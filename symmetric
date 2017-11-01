@@ -2,7 +2,7 @@
 
 . $(type -P utility.sh)
 
-opts=(--batch --default-recipient-self)
+opts=(--batch --personal-cipher-preferences camellia256)
 if HasStdin; then
     input='-'
 else
@@ -13,4 +13,4 @@ else
     fi
     opts+=(-o "${output}")
 fi
-gpg "${opts[@]}" -e "${input}"
+gpg "${opts[@]}" -c "${input}"

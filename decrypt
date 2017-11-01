@@ -2,4 +2,17 @@
 
 . $(type -P utility.sh)
 
-gpg --batch -d "$1" </dev/null | tar zxv
+opts=(--batch)
+if HasStdin; then
+    input='-'
+else
+    input="$1"
+    if [[ "${input}" =~ \.gpg$ ]]; then
+        output="${input%'.gpg'}"
+        if test -f "${output}"; then
+            Error "'${output}' already exists"
+        fi
+        opts+=(-o "${output}")
+    fi
+fi
+gpg "${opts[@]}" -d "${input}"

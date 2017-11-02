@@ -1,0 +1,9 @@
+#!/bin/bash
+
+. $(type -P utility.sh)
+
+if Bound 1 $#; then
+    Command genpass | pass insert -e -f "$1"
+else
+    Error 'No target specified'
+fi

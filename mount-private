@@ -7,4 +7,4 @@ readonly crypted_dir="${HOME}/Documents/Private"
 readonly plaintext_dir="${HOME}/Private"
 Command executable encfs
 mkdir -p "${crypted_dir}" "${plaintext_dir}"
-ENCFS6_CONFIG="${config_file}" encfs "${crypted_dir}" "${plaintext_dir}"
+pass encfs | ENCFS6_CONFIG="${config_file}" encfs -S "${crypted_dir}" "${plaintext_dir}"
